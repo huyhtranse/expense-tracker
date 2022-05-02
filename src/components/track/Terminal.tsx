@@ -1,7 +1,7 @@
-import React from 'react'
+import {FC} from 'react'
 import { FaLongArrowAltDown, FaLongArrowAltUp } from "react-icons/fa";
 
-const Terminal = () => {
+const Terminal:FC = () => {
   return (
     <div className="terminal">
       <div className='terminal__direct'>

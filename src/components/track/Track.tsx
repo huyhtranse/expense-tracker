@@ -1,11 +1,9 @@
-import React from 'react'
-import Terminal from './Terminal'
+import React, {FC} from 'react'
 import TrackBoard from './TrackBoard'
 
-const Track = () => {
+const Track:FC = () => {
   return (
     <div className='track'>
-      <Terminal/>
       <TrackBoard/>
     </div>
   )

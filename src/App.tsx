@@ -1,16 +1,18 @@
-import {FC} from 'react';
+import { FC } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.scss';
-import Balance from './components/Balance';
-import Track from './components/track/Track';
+import Login from './components/auth/Login';
+import Signup from './components/auth/Signup';
+import Home from './components/Home';
 
 const App: FC = () => {
   return (
     <div className="app">
-      <Balance/>
-      <Track/>
-       <div className='btn'>
-        <p>+</p>
-      </div>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signin' element={<Signup />} />
+      </Routes>
     </div>
   );
 }

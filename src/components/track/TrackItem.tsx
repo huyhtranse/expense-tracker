@@ -1,11 +1,11 @@
-import React from 'react'
-import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
+import React, {FC} from 'react'
+import { FaRegTrashAlt } from "react-icons/fa";
 
-const TrackItem = () => {
+const TrackItem: FC = () => {
   return (
     <div className="track-item">
       <div className='track-item__icon'>
-        <FaRegThumbsDown />
+        <FaRegTrashAlt />
       </div>
       <div className='track-item__desc'>
         <h2>Shopping</h2>
