@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react'
 import { FaExclamation, FaGoogle } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { AuthContextType } from '../../interface';
 import styles from './Signup.module.scss';
@@ -9,12 +9,14 @@ const Signup = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const navigate = useNavigate();
   const { signUp } = useAuth() as AuthContextType;
 
   const handleSubmit= async (e: ChangeEvent<any>) => {
     e.preventDefault();
     try {
-      await signUp(email, password)
+      await signUp(email, password);
+      navigate('/login')
     } catch (err: any) { 
       setError(err.message)
     }

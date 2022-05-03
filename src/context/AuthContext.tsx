@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { AuthContextType, ProviderProps } from "../interface";
+import { AuthContextType, Props } from "../interface";
 import { auth } from '../firebaseConfig'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthProvider = ({ children }: ProviderProps) => {
+export const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<any | null>(null);
 
   useEffect(() => {

@@ -2,8 +2,8 @@ import { User } from "firebase/auth";
 import { ReactNode } from "react";
 import { initialState } from "./context/GlobalState";
 
-export interface ProviderProps {
-  children: ReactNode;
+export interface Props {
+  children: ReactNode | null;
 }
 
 export type State = typeof initialState;

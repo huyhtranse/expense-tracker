@@ -1,5 +1,5 @@
 import { createContext, useReducer } from 'react'
-import { ProviderProps, State } from '../interface';
+import { Props, State } from '../interface';
 import { Reducer } from './Reducer';
 
 export const initialState = {
@@ -9,7 +9,7 @@ export const initialState = {
 
 export const GlobalContext = createContext<State | any>(initialState);
 
-export const GlobalProvider = ({children}: ProviderProps) => {
+export const GlobalProvider = ({children}: Props) => {
   const [state, dispatch] = useReducer(Reducer, initialState);
 
   function selectTab(index: number) {
