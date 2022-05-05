@@ -18,20 +18,50 @@ html {
   color: white;
   text-align: center;
 
-  header {
-    p {
-      font-size: 1.5rem;
+  .head {
+    .balance-desc {
       margin-top: 0;
-      margin-bottom: 1rem;
+    }
+    
+    .head-line {
+      display: flex;
+      justify-content: space-between;
+
+      &__left,
+      &__right {
+        flex: 1;
+      }
+
+      &__left {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__right {
+          flex: 1;
+        }
+
+        .btn-logout {
+          padding: 9px 10px;
+          border-radius: 8px;
+          font-weight: bold;
+          background-color: white;
+          border: solid 2px rgb(245, 239, 239);
+          cursor: pointer;
+
+          &:active {
+            background-color: #90efb7;
+            border: solid 2px #90efb7;
+          }
+        }
+      }
     }
   }
 
-  .month {
+  .username {
     padding: 0.5rem;
-    background-color: white;
-    color: #00A84B;
+    color: white;
     border-radius: 2rem;
-    width: 6rem;
     margin: 0 auto;
     font-size: 1rem;
   }
@@ -43,13 +73,6 @@ html {
       margin-top: 1rem;
     }
   }
-
-  div {
-    .balance-desc {
-      margin-top: 0;
-    }
-  }
-
 }
 
 .terminal {

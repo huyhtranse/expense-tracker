@@ -10,7 +10,7 @@ const Login: FC = () => {
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const navigate = useNavigate();
-  const { login } = useAuth() as AuthContextType;
+  const { login, googleSignIn } = useAuth() as AuthContextType;
 
   const handleSubmit = async (e: ChangeEvent<any>) => {
     e.preventDefault();
@@ -22,15 +22,25 @@ const Login: FC = () => {
     }
   };
 
+  const handleGoogleSignIn = async (e: ChangeEvent<any>) => {
+    e.preventDefault();
+    try {
+      await googleSignIn();
+      navigate("/");
+    } catch(err: any) {
+      setError(err.message);
+    }
+  }
+
   return (
     <div className={styles.card}>
       <form onSubmit={handleSubmit}>
         <h2 className={styles.title}>Log in</h2>
         <p className={styles.subtitle}>
-          Don't have an account? <Link to="/signin">Sign Up</Link>
+          Don't have an account? <Link to="/signup">Sign Up</Link>
         </p>
         <div className={styles['social-login']}>
-          <button className={styles["google-btn"]}>
+          <button type='button' className={styles["google-btn"]} onClick={handleGoogleSignIn}>
             <FaGoogle />
             <p>Sign in with Google</p>
           </button>
@@ -64,7 +74,7 @@ const Login: FC = () => {
         </div>
           <input type="checkbox" name="check" id="check" />
           <label className={styles['label-check']} htmlFor="check">Remember Me</label>
-        <button className={styles['btn-login']}>Log in</button>
+        <button type='submit' className={styles['btn-login']}>Log in</button>
         <a href="" className={styles['forget-pw']}>Forgot password?</a>
       </form>
     </div>

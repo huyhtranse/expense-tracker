@@ -29,7 +29,7 @@ const Signup = () => {
         <p className={styles.subtitle}>
           You already have an account. <Link to="/login">Log In</Link>
         </p>
-        <div className={styles["social-login"]}>
+        {/* <div className={styles["social-login"]}>
           <button className={styles["google-btn"]}>
             <FaGoogle />
             <p>Sign up with Google</p>
@@ -37,7 +37,7 @@ const Signup = () => {
         </div>
         <p className={styles.or}>
           <span>or</span>
-        </p>
+        </p> */}
         {error && <div className={styles["box-warn"]}>
           <FaExclamation />
           <p>{error}</p>

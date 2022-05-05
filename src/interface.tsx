@@ -13,4 +13,6 @@ export type AuthContextType = {
   user: User;
   signUp: (email: string, password: string) => void;
   login: (email: string, password: string) => void;
+  logout: () => void;
+  googleSignIn: () => void;
 }
