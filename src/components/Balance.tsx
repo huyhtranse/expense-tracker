@@ -4,11 +4,12 @@ import { AuthContextType } from '../interface';
 import Terminal from './track/Terminal'
 
 const Balance: FC = () => {
-  const { user, logout } = useAuth() as AuthContextType;
+  const { user, logout, setIsAuth } = useAuth() as AuthContextType;
 
   const handleLogout = async () => {
     try {
-      await logout()
+      await logout();
+      setIsAuth(false);
     } catch(err: any) {
       console.log(err.message)
     }

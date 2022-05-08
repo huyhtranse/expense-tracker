@@ -1,8 +1,14 @@
-import React, {FC, useContext} from 'react'
+import React, {ChangeEvent, FC, useContext} from 'react'
 import { GlobalContext } from '../../context/GlobalState';
 
 const Modal: FC = () => {
   const {modal, toggleModal} = useContext(GlobalContext);
+  
+
+  const handleSubmit = (e: ChangeEvent<any>) => {
+    e.preventDefault();
+
+  }
 
   return (
     <>
@@ -10,7 +16,7 @@ const Modal: FC = () => {
       <div id="modal" className={modal ? 'modal-active' : ''}>
         <div id="modal-content">
           <span id='close' onClick={() => toggleModal(false)}>x</span>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name">Name</label>
               <input type="text" id='name' />

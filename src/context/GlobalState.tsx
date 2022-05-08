@@ -4,7 +4,7 @@ import { Reducer } from './Reducer';
 
 export const initialState = {
   tab: 1,
-  modal: false
+  modal: false,
 }
 
 export const GlobalContext = createContext<State | any>(initialState);
@@ -17,7 +17,7 @@ export const GlobalProvider = ({children}: Props) => {
       type: "SELECT_TAB",
       payload: index,
     });
-  }
+  } 
 
   function toggleModal(toggle: boolean) {
     dispatch({

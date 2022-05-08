@@ -10,12 +10,13 @@ const Login: FC = () => {
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const navigate = useNavigate();
-  const { login, googleSignIn } = useAuth() as AuthContextType;
+  const { login, googleSignIn, setIsAuth } = useAuth() as AuthContextType;
 
   const handleSubmit = async (e: ChangeEvent<any>) => {
     e.preventDefault();
     try {
       await login(email, password);
+      setIsAuth(true);
       navigate("/");
     } catch (err: any) {
       setError(err.message);
@@ -26,6 +27,7 @@ const Login: FC = () => {
     e.preventDefault();
     try {
       await googleSignIn();
+      setIsAuth(true);
       navigate("/");
     } catch(err: any) {
       setError(err.message);
@@ -39,8 +41,12 @@ const Login: FC = () => {
         <p className={styles.subtitle}>
           Don't have an account? <Link to="/signup">Sign Up</Link>
         </p>
-        <div className={styles['social-login']}>
-          <button type='button' className={styles["google-btn"]} onClick={handleGoogleSignIn}>
+        <div className={styles["social-login"]}>
+          <button
+            type="button"
+            className={styles["google-btn"]}
+            onClick={handleGoogleSignIn}
+          >
             <FaGoogle />
             <p>Sign in with Google</p>
           </button>
@@ -48,10 +54,12 @@ const Login: FC = () => {
         <p className={styles.or}>
           <span>or</span>
         </p>
-        {error && <div className={styles["box-warn"]}>
-          <FaExclamation />
-          <p>{error}</p>
-        </div>}
+        {error && (
+          <div className={styles["box-warn"]}>
+            <FaExclamation />
+            <p>{error}</p>
+          </div>
+        )}
         <div className={styles["email-login"]}>
           <label htmlFor="email">Email</label>
           <input
@@ -70,12 +78,15 @@ const Login: FC = () => {
             id="psw"
             onChange={(e) => setPassword(e.target.value)}
           />
-
         </div>
-          <input type="checkbox" name="check" id="check" />
-          <label className={styles['label-check']} htmlFor="check">Remember Me</label>
-        <button type='submit' className={styles['btn-login']}>Log in</button>
-        <a href="" className={styles['forget-pw']}>Forgot password?</a>
+        {/* <input type="checkbox" name="check" id="check" />
+        <label className={styles["label-check"]} htmlFor="check">
+          Remember Me
+        </label> */}
+        <button type="submit" className={styles["btn-login"]}>
+          Log in
+        </button>
+        {/* <a href="" className={styles['forget-pw']}>Forgot password?</a> */}
       </form>
     </div>
   );

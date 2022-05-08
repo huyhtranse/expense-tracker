@@ -7,13 +7,17 @@ import {
   onAuthStateChanged,
   signOut,
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup,
+  setPersistence,
+  browserSessionPersistence
+  // browserLocalPersistence,
 } from "firebase/auth";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<any | null>(null);
+  const [user, setUser] = useState<any>({});
+  const [ isAuth, setIsAuth ] = useState<boolean>(false);
 
   useEffect(() => {
     const unsubscibe = onAuthStateChanged(auth, (currentUser) => {
@@ -27,7 +31,9 @@ export const AuthProvider = ({ children }: Props) => {
     return createUserWithEmailAndPassword(auth, email, password);
   }
   function login(email: string, password: string) {
-    return signInWithEmailAndPassword(auth, email, password);
+    return setPersistence(auth, browserSessionPersistence).then(() =>
+      signInWithEmailAndPassword(auth, email, password)
+    ).catch((err: any) => console.log('login', err.message));
   }
   function logout() {
     return signOut(auth);
@@ -38,7 +44,7 @@ export const AuthProvider = ({ children }: Props) => {
   }
 
   return (
-    <AuthContext.Provider value={{ user, signUp, login, logout, googleSignIn }}>
+    <AuthContext.Provider value={{ user, isAuth, setIsAuth, signUp, login, logout, googleSignIn }}>
       {children}
     </AuthContext.Provider>
   );
@@ -47,3 +53,5 @@ export const AuthProvider = ({ children }: Props) => {
 export function useAuth() {
   return useContext(AuthContext);
 }
+
+export const AuthConsumer = AuthContext.Consumer;

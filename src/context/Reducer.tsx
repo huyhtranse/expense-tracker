@@ -1,4 +1,4 @@
-import { Action, State } from "../interface";
+import { Action, State, Transaction } from "../interface";
 
 export const Reducer = (state: State, action: Action) => {
   switch (action.type) {
@@ -14,7 +14,19 @@ export const Reducer = (state: State, action: Action) => {
         modal: action.payload,
       };
 
+    case "DELETE_TRANSACTION":
+      return {
+        ...state,
+        transactions: state.transactions.filter(
+          (item: Transaction) => item.id !== action.payload
+        ),
+      };
+    case "CREATE_TRANSACTION":
+      return {
+        ...state,
+        transactions: [...state.transactions, action.payload],
+      };
     default:
       return state;
   }
-}
+};

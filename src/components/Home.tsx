@@ -6,10 +6,6 @@ import Modal from "./modal/Modal";
 import Track from "./track/Track";
 
 const Home: FC = () => {
-  const { user } = useAuth() as AuthContextType;
-
-  console.log(user);
-  
   return (
     <>
       <Modal />
