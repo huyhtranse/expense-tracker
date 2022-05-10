@@ -1,9 +1,17 @@
 import { FC, useContext } from "react";
 import TrackItem from "./TrackItem";
 import { GlobalContext } from "../../context/GlobalState";
+import { useWallet } from "../../context/WalletContext";
+import { Transaction } from "../../interface";
 
 const TrackBoard: FC = () => {
-  const { tab, selectTab, toggleModal } = useContext(GlobalContext);
+  const { tab, setUpdate, selectTab, toggleModal } = useContext(GlobalContext);
+  const { transactions } = useWallet();
+
+  const onClickPlus = () => {
+    setUpdate(null);
+    toggleModal(true);
+  }
 
   return (
     <div className="track-board">
@@ -24,26 +32,21 @@ const TrackBoard: FC = () => {
         </ul>
       </nav>
       <div className={tab === 1 ? "active-content" : "content"}>
-        <TrackItem />
-        <TrackItem />
-        <TrackItem />
-        <TrackItem />
-        <TrackItem />
-        <TrackItem />
-        <TrackItem />
-        <TrackItem />
-        <TrackItem />
-        <TrackItem />
-        <TrackItem />
-        <TrackItem />
+        {transactions
+          .filter((transaction: Transaction) => transaction.amount < 0)
+          .map((transaction: Transaction) => (
+            <TrackItem key={transaction.id} transaction={transaction} />
+          ))}
       </div>
       <div className={tab === 2 ? "active-content" : "content"}>
-        <TrackItem />
-        <TrackItem />
-        <TrackItem />
+        {transactions
+          .filter((transaction: Transaction) => transaction.amount > 0)
+          .map((transaction: Transaction) => (
+            <TrackItem key={transaction.id} transaction={transaction} />
+          ))}
       </div>
       <div className="btn-add">
-        <button onClick={() => toggleModal(true)}>+</button>
+        <button onClick={onClickPlus}>+</button>
       </div>
     </div>
   );

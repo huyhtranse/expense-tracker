@@ -5,6 +5,7 @@ import { Reducer } from './Reducer';
 export const initialState = {
   tab: 1,
   modal: false,
+  updateUser: ''
 }
 
 export const GlobalContext = createContext<State | any>(initialState);
@@ -26,8 +27,15 @@ export const GlobalProvider = ({children}: Props) => {
     })
   }
 
+  function setUpdate(update: string) {
+    dispatch({
+      type: 'UPDATE_MODE',
+      payload: update
+    })
+  }
+
   return (
-    <GlobalContext.Provider  value={{tab: state.tab, modal: state.modal, selectTab, toggleModal}}>
+    <GlobalContext.Provider  value={{ tab: state.tab, modal: state.modal, selectTab, toggleModal, setUpdate }}>
       {children}
     </GlobalContext.Provider>
   )

@@ -1,5 +1,5 @@
-import React, { ChangeEvent, useState } from 'react'
-import { FaExclamation, FaGoogle } from 'react-icons/fa';
+import { ChangeEvent, useState } from 'react'
+import { FaExclamation } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { AuthContextType } from '../../interface';

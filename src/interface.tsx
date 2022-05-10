@@ -1,25 +1,31 @@
 import { User } from "firebase/auth";
 import { Dispatch, ReactNode, SetStateAction } from "react";
-import { initialState } from "./context/GlobalState";
-import { initialTransState } from "./context/WalletContext"
 
 export interface Transaction {
-  id: number;
+  id?: string;
   text: string;
   amount: number;
+  date: string;
 };
 
 export interface Props {
   children: ReactNode | null;
 }
 
-export type State = { tab?: any; modal?: boolean; transactions?: any };
+export type State = {
+  tab?: any;
+  modal?: boolean;
+  transactions?: any;
+  updateUser?: any;
+};
 
 export type Action =
   | { type: "SELECT_TAB"; payload: number }
   | { type: "TOGGLE_MODAL"; payload: boolean }
-  | { type: "DELETE_TRANSACTION"; payload: number }
+  | { type: "DELETE_TRANSACTION"; payload: string }
   | { type: "CREATE_TRANSACTION"; payload: Transaction }
+  | { type: "FETCH_TRANSACTIONS"; payload: Transaction[] }
+  | { type: 'UPDATE_MODE'; payload: string }
 
 export type AuthContextType = {
   user: User;
@@ -35,4 +41,5 @@ export type TransContextType = {
   transactions: Transaction[];
   deleteTransaction: (id: number) => void;
   createTransaction: (transaction: Transaction) => void;
+  fetchTransactions: (transactions: Transaction[]) => void;
 }

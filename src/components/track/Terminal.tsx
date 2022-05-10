@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import { FC } from 'react'
 import { FaLongArrowAltDown, FaLongArrowAltUp } from "react-icons/fa";
 
 const Terminal:FC = () => {
