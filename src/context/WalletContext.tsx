@@ -1,7 +1,7 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { addDoc, collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import { Props, TransContextType } from "../interface";
+import { Props, TransContextType, Transaction } from "../interface";
 import { Reducer } from "./Reducer";
 
 export const initialTransState = {
@@ -13,20 +13,39 @@ export const WalletContext = createContext<TransContextType | any>(initialTransS
 export const WalletProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(Reducer, initialTransState);
   const transCollectionRef = collection(db, "transactions");
+  const [minus, setMinus] = useState<number>(0);
+  const [plus, setPlus] = useState<number>(0);
   
   useEffect(() => {
     const transCollectionRef = collection(db, "transactions");
 
     const getTrans = async () => {
       const data = await getDocs(transCollectionRef);
-      fetchTransactions(
-        data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      const transacs: any = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      fetchTransactions(transacs);
+      const plus = transacs.reduce(
+        (total: number, trans: Transaction) => {
+          if (trans.amount > 0) {
+            return (total += trans.amount);
+          }
+          return (total += 0);
+        },
+        0
       );
-    };
-
+      const minus = transacs.reduce(
+        (total: number, trans: Transaction) => {
+          if (trans.amount < 0) {
+            return (total += trans.amount);
+          }
+          return (total += 0);
+        },
+        0
+      );
+      setPlus(plus);
+      setMinus(minus);
+    };  
     getTrans();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.transactions]);
+  }, []);
 
   function fetchTransactions(transactions: any) {
     dispatch({
@@ -61,7 +80,7 @@ export const WalletProvider = ({ children }: Props) => {
 
   }
   return (
-    <WalletContext.Provider value={{ transactions: state.transactions, deleteTransaction, createTransaction, updateTransaction }}>
+    <WalletContext.Provider value={{ minus, plus, transactions: state.transactions, deleteTransaction, createTransaction, updateTransaction }}>
       {children}
     </WalletContext.Provider>
   )

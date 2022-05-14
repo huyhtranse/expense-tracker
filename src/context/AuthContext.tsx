@@ -10,7 +10,6 @@ import {
   signInWithPopup,
   setPersistence,
   browserSessionPersistence
-  // browserLocalPersistence,
 } from "firebase/auth";
 
 const AuthContext = createContext<AuthContextType | null>(null);

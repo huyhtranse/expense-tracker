@@ -1,10 +1,12 @@
 import { FC } from 'react'
 import { useAuth } from '../context/AuthContext'
+import { useWallet } from '../context/WalletContext';
 import { AuthContextType } from '../interface';
 import Terminal from './track/Terminal'
 
 const Balance: FC = () => {
   const { user, logout, setIsAuth } = useAuth() as AuthContextType;
+  const { minus, plus } = useWallet();
 
   const handleLogout = async () => {
     try {
@@ -25,7 +27,7 @@ const Balance: FC = () => {
               <button className='btn-logout' onClick={handleLogout}>Log out</button>
               <div className='head-line__left__right'></div>
             </div>
-            <h1><span className='usd-char'>$</span>9999999</h1>
+            <h1><span className='usd-char'>$</span>{plus - minus}</h1>
             <div className='head-line__right'></div>
           </div>
           <p className='balance-desc'>Current Balance</p>

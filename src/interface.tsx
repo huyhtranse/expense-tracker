@@ -38,6 +38,8 @@ export type AuthContextType = {
 }
 
 export type TransContextType = {
+  minus: number,
+  plus: number,
   transactions: Transaction[];
   deleteTransaction: (id: number) => void;
   createTransaction: (transaction: Transaction) => void;

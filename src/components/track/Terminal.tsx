@@ -1,7 +1,10 @@
 import { FC } from 'react'
 import { FaLongArrowAltDown, FaLongArrowAltUp } from "react-icons/fa";
+import { useWallet } from '../../context/WalletContext';
 
 const Terminal:FC = () => {
+  const { minus, plus } = useWallet();
+
   return (
     <div className="terminal">
       <div className='terminal__direct'>
@@ -9,7 +12,7 @@ const Terminal:FC = () => {
           <FaLongArrowAltUp />
         </div>
         <div className='terminal__direct__number'>
-          <h3>$00000</h3>
+          <h3>{minus}$</h3>
           <p>Expense</p>
         </div>
       </div>
@@ -18,7 +21,7 @@ const Terminal:FC = () => {
           <FaLongArrowAltDown />
         </div>
         <div className='terminal__direct__number'>
-          <h3>$00000</h3>
+          <h3>{plus}$</h3>
           <p>Income</p>
         </div>
       </div>
